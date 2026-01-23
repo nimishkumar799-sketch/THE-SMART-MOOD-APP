@@ -1,0 +1,645 @@
+.quick-links {
+    margin-top: 30px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+.quick-links h4 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.link-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 10px;
+}
+
+.link-item {
+    background: #1a1a1a;
+    padding: 12px 5px;
+    border-radius: 12px;
+    color: #bbb;
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.link-item:hover {
+    border-color: #3b82f6;
+    color: white;
+    background: #222;
+}
+/* 1. The Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    /* Advanced Animated Gradient */
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #000000, #1e1b4b);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 2. The Main Container (Responsive) */
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    /* Glass Effect */
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(15px); /* This blurs the background behind the card */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    padding: 30px;
+    border-radius: 40px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+/* 3. Header & Text */
+header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+#date-display {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* 4. Button Styling */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.btn {
+    flex: 1; /* Makes buttons equal size on phone */
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.productive { background: #3b82f6; color: white; }
+.chill { background: #10b981; color: white; }
+
+.btn:active { transform: scale(0.95); } /* Feel like a real app click */
+
+/* 5. The Content Card (The Magic Box) */
+.content-card {
+    margin-top: 20px;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 20px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px dashed #444;
+}
+.goal-section {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.goal-section input {
+    flex: 1;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    outline: none;
+}
+
+#saveBtn {
+    width: 45px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.goal-display {
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 20px;
+    min-height: 24px;
+
+}
+
+.clear-btn {
+    background: rgba(239, 68, 68, 0.1); /* Subtle red background */
+    color: #ef4444; /* Bright red text */
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: -10px; /* Pulls it closer to the goal text */
+    display: inline-block;
+}
+
+.clear-btn:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+    transform: translateY(-2px);
+}
+
+.clear-btn:active {
+    transform: translateY(0);
+}
+/* The main container for the timer and buttons */
+.timer-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 25px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 20px auto;
+    width: 100%;
+    max-width: 300px; /* This keeps everything the same width */
+}
+
+/* Large, readable timer */
+#timer-display {
+    font-size: 60px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 20px;
+    font-family: 'Monaco', monospace;
+    letter-spacing: 2px;
+}
+
+/* Controls container */
+.timer-controls {
+    display: flex;
+    flex-direction: column; /* Stacks buttons vertically for a clean look */
+    gap: 12px;
+}
+
+/* Making buttons same size and attractive */
+.timer-controls button {
+    width: 100%; /* Makes buttons match the timer width */
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Blue Start Button */
+#timer-start {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+#timer-start:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* Red Reset Button */
+#timer-reset {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+#timer-reset:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* Mobile Tweak */
+@media (max-width: 400px) {
+    .timer-card {
+        max-width: 260px;
+    }
+    #timer-display {
+        font-size: 50px;
+    }
+}
+/* Container for the Task Section */
+.advanced-tasks {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.input-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+/* Glow effect when typing */
+.input-group:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.input-group input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 15px;
+    color: white;
+    outline: none;
+    font-size: 14px;
+}
+
+.input-group button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* The List Items */
+#taskList {
+    list-style: none;
+    margin-top: 15px;
+    padding: 0;
+}
+
+#taskList li {
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Completed Task Style */
+.completed {
+    text-decoration: line-through;
+    color: #666;
+    opacity: 0.6;
+}
+
+.task-text {
+    flex: 1;
+    cursor: pointer;
+    font-size: 14px;
+}
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.user-profile h2 {
+    font-size: 20px;
+    background: linear-gradient(to right, #fff, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Progress Ring Animation */
+.progress-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.5s ease;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+#progress-percent {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    color: #3b82f6;
+}
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.4s ease; /* This makes it "spin" or slide */
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke-dasharray: 158; /* Circumference of the circle */
+    stroke-dashoffset: 158; /* Starts at 158 (empty) */
+}
+/* The Button Styling */
+#focus-mode-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #3b82f6;
+    border: 1px solid #3b82f6;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+/* THE MAGIC: When "deep-work-active" is added to the body */
+body.deep-work-active .app-header, 
+body.deep-work-active .links-section,
+body.deep-work-active #content-box {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: 0.5s;
+}
+
+body.deep-work-active .app-container {
+    border-color: #3b82f6;
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.2);
+    transform: scale(1.05);
+}
+
+body.deep-work-active {
+    background: #000; /* Pure black background for zero distraction */
+}
+.streak-badge {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#streak-fire {
+    font-size: 20px;
+    filter: drop-shadow(0 0 5px orange);
+    display: block;
+}
+
+#streak-count {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.streak-badge p {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    color: #3b82f6;
+}
+.aura-wrapper {
+    position: relative;
+    padding: 10px;
+    transition: all 2s ease;
+}
+
+/* The Glow Effect */
+.aura-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 105%;
+    height: 105%;
+    background: var(--aura-color, linear-gradient(45deg, #3b82f6, #8b5cf6));
+    filter: blur(40px);
+    z-index: -1;
+    opacity: 0.4;
+    transition: all 2s ease;
+}
+
+/* Specific States */
+.flow-state::before {
+    --aura-color: linear-gradient(45deg, #1e40af, #7c3aed);
+    opacity: 0.8;
+    filter: blur(60px);
+}
+
+.break-state::before {
+    --aura-color: linear-gradient(45deg, #10b981, #34d399);
+}
+.aura-wrapper::before {
+    content: '';
+    /* ... existing code ... */
+    pointer-events: none; /* This ensures clicks pass through the glow to the button */
+    z-index: -1;
+}
+#canvas-dots {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Sits behind everything, even the aura */
+    opacity: 0.4;
+    pointer-events: none;
+}
+@media (max-width: 600px) {
+    .mobile-dock {
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        padding: 12px 25px;
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        gap: 20px;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .mobile-dock button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .dock-main {
+        font-size: 28px !important;
+        transform: translateY(-5px);
+        text-shadow: 0 0 10px #3b82f6;
+    }
+    
+    /* Hide scrollbar for a cleaner mobile look */
+    body::-webkit-scrollbar { display: none; }
+}
+
+@media (min-width: 601px) {
+    .mobile-dock { display: none; }
+}
+/* Reading Mode Styles */
+body.reading-mode {
+    filter: sepia(0.4) contrast(1.1); /* Warm, paper-like tint */
+    background-color: #1a1a1a; /* Deeper black */
+}
+
+body.reading-mode .task-text, 
+body.reading-mode #timer-display,
+body.reading-mode h1 {
+    font-size: 1.2rem; /* Make text 20% larger */
+    letter-spacing: 0.5px;
+    color: #fef3c7; /* Soft cream color instead of harsh white */
+}
+
+body.reading-mode .app-container {
+    max-width: 95%; /* Use more screen width on mobile */
+    border-color: #d97706; /* Amber border */
+}
+.exam-countdown {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#countdown-timer {
+    font-family: 'Courier New', monospace; /* Digital look */
+    font-size: 22px;
+    font-weight: bold;
+    color: #ef4444; /* Urgent Red */
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+#exam-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 5px;
+    color: #888;
+}
+.resource-section {
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+}
+
+.resource-input {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.resource-input input {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid #444;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns on mobile */
+    gap: 10px;
+}
+
+.resource-card {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.resource-card:hover { background: rgba(59, 130, 246, 0.2); }
+
+.resource-card span { font-size: 20px; margin-bottom: 5px; }
+.grade-calculator {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px dashed #3b82f6;
+    border-radius: 15px;
+}
+
+.calc-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.calc-inputs input {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: white;
+}
+
+#calc-result {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #10b981; /* Success Green */
+    font-size: 14px;
+}

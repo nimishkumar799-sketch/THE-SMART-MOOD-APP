@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE SMART MOOD LINK HUB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="canvas-dots"></canvas>
+    <audio id="zen-audio" loop preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+</audio>
+    <div class="app-container">
+        <div class="grade-calculator">
+    <h3>📈 Grade Predictor</h3>
+    <div class="calc-inputs">
+        <input type="number" id="current-grade" placeholder="Current % (e.g. 75)">
+        <input type="number" id="exam-weight" placeholder="Exam Weight % (e.g. 40)">
+        <input type="number" id="target-grade" placeholder="Target % (e.g. 80)">
+    </div>
+    <button onclick="calculateRequired()">Calculate Goal</button>
+    <p id="calc-result"></p>
+</div>
+        
+        <div class="exam-countdown" onclick="setExamDate()">
+    <div id="countdown-timer">00d 00h 00m 00s</div>
+    <p id="exam-label">Loading Exam Goal...</p>
+</div>
+        <div class="aura-wrapper" id="main-aura">
+    <div class="app-container"> 
+
+    </div>
+</div>
+        
+        <section class="quick-links">
+    <h4>My Shortcuts</h4>
+    <div class="link-grid">
+        <a href="https://www.dcrustm.ac.in/" target="_blank" class="link-item">Dcrust</a>
+        <a href="https://www.youtube.com" target="_blank" class="link-item">YouTube</a>
+        <a href="https://github.com" target="_blank" class="link-item">GitHub</a>
+    
+    </div>
+</section>
+<audio id="alarm-sound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7314777b76.mp3" type="audio/mpeg">
+</audio>
+
+        <header class="app-header">
+    <div class="user-profile">
+        <h2 id="greeting">Loading...</h2>
+        <p id="date-display"></p>
+    </div>
+    <div class="streak-badge">
+    <span id="streak-fire">🔥</span>
+    <span id="streak-count">0</span>
+    <p>Day Streak</p>
+</div>
+    <div class="progress-container">
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="4" fill="transparent" r="25" cx="30" cy="30"/>
+            <circle class="progress-ring__circle" id="progress-bar" stroke="#3b82f6" stroke-width="4" stroke-dasharray="157.08 157.08" style="stroke-dashoffset: 157.08" fill="transparent" r="25" cx="30" cy="30"/>
+        </svg>
+        <span id="progress-percent">0%</span>
+    </div>
+</header>
+            <p id="date-display"></p>
+            <div class="advanced-tasks">
+    <div class="input-group">
+        <input type="text" id="taskInput" placeholder="Add a focus task...">
+        <button onclick="addTask()">Add</button>
+        
+    </div>
+    <ul id="taskList"></ul>
+</div>
+<div class="resource-section">
+    <h3>📚 Resource Library</h3>
+    <div class="resource-input">
+        <input type="text" id="resource-name" placeholder="Name (e.g. Physics PDF)">
+        <input type="text" id="resource-url" placeholder="Paste Link (HTTP://...)">
+        <button onclick="addResource()">+</button>
+    </div>
+    <div id="resource-grid" class="resource-grid">
+        </div>
+</div>
+<p id="activeGoal" class="goal-display"></p>
+<button onclick="clearCompleted()" class="clear-btn">Clear Completed Tasks</button>
+<section class="timer-section">
+    <div class="focus-toggle-container">
+        <div class="volume-control" style="margin-top: 10px;">
+    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" 
+           oninput="document.getElementById('zen-audio').volume = this.value">
+    <span style="font-size: 10px; color: #3b82f6;">Vol</span>
+</div>
+    <button onclick="toggleDeepWork()" id="focus-mode-btn">✨ Enter Deep Work</button>
+</div>
+    <div id="timer-display">25:00</div>
+    <div class="timer-controls">
+        <button onclick="startTimer()" id="timer-start">Start Focus</button>
+        <button onclick="resetTimer()" id="timer-reset">Reset</button>
+    
+    </div>
+</section>
+        </header>
+
+        <section class="mood-selector">
+            <h2>How is the vibe today?</h2>
+            <div class="button-group">
+                <button class="btn productive" onclick="updateMood('productive')">🚀 Study Mode</button>
+                <button class="btn chill" onclick="updateMood('chill')">☕ Zen Mode</button>
+            </div>
+        </section>
+
+        <main id="content-box" class="content-card">
+            <p>Select a vibe to see your dashboard.</p>
+        </main>
+    </div>
+    
+
+    <script src="script.js"></script>
+<div class="mobile-dock">
+   
+    <button onclick="toggleReadingMode()" id="read-mode-btn">📖</button>
+
+    <button onclick="document.getElementById('taskInput').focus()">📝</button>
+    <button onclick="startTimer()">⏱️</button>
+    <button onclick="toggleDeepWork()" class="dock-main">✨</button>
+    <button onclick="toggleAnalytics()">📊</button>
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</button>
+</div>
+</body>
+</html>
