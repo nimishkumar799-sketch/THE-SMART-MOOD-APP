@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="welcome-overlay" class="overlay">
+    <div class="welcome-box">
+        <div class="glow-circle"></div>
+        <h2>SYSTEM INITIALIZED</h2>
+        <p>Identify yourself, Commander. What shall I call you?</p>
+        <input type="text" id="user-name-input" placeholder="Enter your name..." autocomplete="off">
+        <button onclick="saveName()">ACCESS HUB</button>
+    </div>
+</div>
     <canvas id="canvas-dots"></canvas>
     <audio id="zen-audio" loop preload="auto">
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
@@ -48,14 +57,20 @@
 </audio>
 
         <header class="app-header">
+          
+            <h1 id="main-greeting">System Ready</h1>
     <div class="user-profile">
         <h2 id="greeting">Loading...</h2>
         <p id="date-display"></p>
+        
     </div>
+    
     <div class="streak-badge">
+        <span class="user-display-name">User</span>
     <span id="streak-fire">🔥</span>
     <span id="streak-count">0</span>
     <p>Day Streak</p>
+    
 </div>
     <div class="progress-container">
         <svg class="progress-ring" width="60" height="60">
@@ -64,12 +79,14 @@
         </svg>
         <span id="progress-percent">0%</span>
     </div>
+    
 </header>
             <p id="date-display"></p>
             <div class="advanced-tasks">
     <div class="input-group">
         <input type="text" id="taskInput" placeholder="Add a focus task...">
         <button onclick="addTask()">Add</button>
+        
         
     </div>
     <ul id="taskList"></ul>
@@ -80,9 +97,53 @@
         <input type="text" id="resource-name" placeholder="Name (e.g. Physics PDF)">
         <input type="text" id="resource-url" placeholder="Paste Link (HTTP://...)">
         <button onclick="addResource()">+</button>
+        
     </div>
     <div id="resource-grid" class="resource-grid">
         </div>
+        <div class="class-pulse">
+    <h3>👥 Classroom Pulse</h3>
+    <div class="pulse-input">
+        <input type="text" id="status-input" placeholder="What are you studying? (e.g. Unit 3 Math)">
+        <button onclick="postStatus()">Broadcast</button>
+    </div>
+    <div class="quick-tags">
+    <span onclick="addTag('📚 NOTES:')">Notes</span>
+    <span onclick="addTag('🔗 LINK:')">Link</span>
+    <span onclick="addTag('❓ HELP:')">Help</span>
+</div>
+<div class="attendance-card">
+    <h3>🚨 Attendance Guard (75% Rule)</h3>
+    <div class="att-input-group">
+        <input type="number" id="total-classes" placeholder="Total Classes Held">
+        <input type="number" id="attended-classes" placeholder="Classes Attended">
+    </div>
+    <button onclick="calculateAttendance()">RUN ANALYSIS</button>
+    <div id="att-result" class="result-box">Enter data to analyze status...</div>
+</div>
+</option>
+      <div class="timetable-section">
+    <h3>📅 CLASS SCHEDULE</h3>
+    <div id="schedule-container" class="schedule-view">
+        <p id="no-schedule">No schedule uploaded yet.</p>
+        <img id="timetable-img" src="" style="display:none; width:100%; border-radius: 10px;">
+    </div>
+    <div class="upload-btn-wrapper">
+        <button class="btn-upload">UPLOAD SCHEDULE</button>
+        <input type="file" id="schedule-upload" accept="image/*" onchange="loadSchedule(event)">
+    </div>
+    <div class="growth-box">
+    <div id="tree-stage">🌱</div>
+    <p>Focus Level: <span id="focus-level">Seed</span></p>
+</div>
+</div>
+    </select>
+    
+
+    <div id="pulse-feed" class="pulse-feed">
+        </div>
+</div>
+
 </div>
 <p id="activeGoal" class="goal-display"></p>
 <button onclick="clearCompleted()" class="clear-btn">Clear Completed Tasks</button>
@@ -115,6 +176,17 @@
         <main id="content-box" class="content-card">
             <p>Select a vibe to see your dashboard.</p>
         </main>
+        <div class="zen-section">
+    <h3>🧘 ZEN FOCUS ROOM</h3>
+    <div class="breathing-circle" id="pacer"></div>
+    <p id="zen-text">Inhale...</p>
+    <div class="hydration-check">
+        <span>💧 Water Intake:</span>
+        <button onclick="updateWater()">+ Cup</button>
+        <span id="water-count">0</span>/8 Cups
+    </div>
+</div>
+        
     </div>
     
 
@@ -128,6 +200,7 @@
     <button onclick="toggleDeepWork()" class="dock-main">✨</button>
     <button onclick="toggleAnalytics()">📊</button>
     <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</button>
+    
 </div>
 </body>
 </html>
