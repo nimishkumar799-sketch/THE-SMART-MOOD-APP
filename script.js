@@ -1,3 +1,156 @@
+let focusTime = 0;
+setInterval(() => {
+    focusTime++;
+    if(focusTime > 60) document.getElementById('tree-stage').innerText = "🌿";
+    if(focusTime > 300) document.getElementById('tree-stage').innerText = "🌳";
+    if(focusTime > 600) document.getElementById('tree-stage').innerText = "🌸";
+}, 1000);
+function toggleZenOverlay() {
+    const overlay = document.getElementById('zen-overlay');
+    overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+}
+function loadSchedule(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const dataURL = reader.result;
+        localStorage.setItem('savedSchedule', dataURL);
+        displaySchedule(dataURL);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+function displaySchedule(url) {
+    const img = document.getElementById('timetable-img');
+    const placeholder = document.getElementById('no-schedule');
+    const container = document.getElementById('schedule-container');
+    
+    img.src = url;
+    img.style.display = "block";
+    placeholder.style.display = "none";
+    container.style.border = "none";
+}
+
+// Add this to your window.onload function so it loads the image on startup
+const savedImg = localStorage.getItem('savedSchedule');
+if (savedImg) {
+    displaySchedule(savedImg);
+}
+function calculateAttendance() {
+    const total = parseInt(document.getElementById('total-classes').value);
+    const attended = parseInt(document.getElementById('attended-classes').value);
+    const resultDiv = document.getElementById('att-result');
+
+    if (isNaN(total) || isNaN(attended)) {
+        resultDiv.innerText = "Please enter valid numbers.";
+        return;
+    }
+
+    const currentPerc = (attended / total) * 100;
+    
+    if (currentPerc >= 75) {
+        // Calculate how many they can skip
+        let skippable = 0;
+        let tempTotal = total;
+        while (((attended) / (tempTotal + 1)) * 100 >= 75) {
+            skippable++;
+            tempTotal++;
+        }
+        resultDiv.className = "result-box safe";
+        resultDiv.innerHTML = `Current: ${currentPerc.toFixed(1)}% <br> Status: SAFE. You can skip the next ${skippable} classes.`;
+    } else {
+        // Calculate how many they must attend
+        let required = 0;
+        let tempTotal = total;
+        let tempAttended = attended;
+        while ((tempAttended / tempTotal) * 100 < 75) {
+            required++;
+            tempTotal++;
+            tempAttended++;
+        }
+        resultDiv.className = "result-box danger";
+        resultDiv.innerHTML = `Current: ${currentPerc.toFixed(1)}% <br> Status: DANGER. You must attend the next ${required} classes without fail!`;
+    }
+}
+function copySnippet() {
+    const val = document.getElementById('snippet-selector').value;
+    if(val) {
+        navigator.clipboard.writeText(val);
+        document.getElementById('copy-msg').innerText = "Copied to Clipboard! 📋";
+        setTimeout(() => { document.getElementById('copy-msg').innerText = "Click to select and auto-copy!"; }, 2000);
+    }
+}
+
+function addTag(tag) {
+    const input = document.getElementById('status-input');
+    input.value = tag + " " + input.value;
+    input.focus();
+}
+function postStatus() {
+    const statusText = document.getElementById('status-input').value;
+    const userName = localStorage.getItem('studentName') || "Anonymous";
+    const feed = document.getElementById('pulse-feed');
+
+    if (statusText.trim() !== "") {
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        const card = document.createElement('div');
+        card.className = "pulse-card";
+        card.innerHTML = `
+            <b>${userName} • ${time}</b>
+            <p>${statusText}</p>
+        `;
+
+        // Prepend so the newest status is at the top
+        feed.insertBefore(card, feed.firstChild);
+        
+        // Clear input
+        document.getElementById('status-input').value = "";
+
+        // Optional: Keep only last 5 statuses
+        if (feed.children.length > 5) {
+            feed.removeChild(feed.lastChild);
+        }
+    }
+}
+function applyIdentity() {
+    const savedName = localStorage.getItem('studentName');
+    if (savedName) {
+        document.getElementById('welcome-overlay').style.display = 'none';
+        document.getElementById('main-greeting').innerText = `Welcome, ${savedName}`;
+    }
+}
+function saveName() {
+    const name = document.getElementById('user-name-input').value;
+    if (name.trim() !== "") {
+        localStorage.setItem('studentName', name);
+        applyIdentity();
+        document.getElementById('welcome-overlay').style.display = 'none';
+    }
+}
+
+function applyIdentity() {
+    const savedName = localStorage.getItem('studentName');
+    if (savedName) {
+        // Find any element with a specific class and update it
+        // Or just target your header specifically:
+        const header = document.querySelector('h1'); 
+        if(header) header.innerText = `Welcome, ${savedName}`;
+        document.querySelectorAll('.user-display-name').forEach(el => {
+    el.innerText = savedName;
+});
+        // This hides the popup if the name is already known
+        document.getElementById('welcome-overlay').style.display = 'none';
+    }
+}
+
+// Run this as soon as the page loads
+window.addEventListener('load', () => {
+    if (localStorage.getItem('studentName')) {
+        applyIdentity();
+    } else {
+        document.getElementById('welcome-overlay').style.display = 'flex';
+    }
+});
 // 1. Run this immediately when the page loads
 window.onload = function() {
     setGreeting();
@@ -140,9 +293,9 @@ function toggleTask(element) {
 function setGreeting() {
     const hour = new Date().getHours();
     const greetingElement = document.getElementById('greeting');
-    if (hour < 12) greetingElement.innerText = "Good Morning, Nimish";
-    else if (hour < 18) greetingElement.innerText = "Good Afternoon, Nimish";
-    else greetingElement.innerText = "Good Evening, Nimish";
+    if (hour < 12) greetingElement.innerText = "Good Morning Dear";
+    else if (hour < 18) greetingElement.innerText = "Good Afternoon Dear";
+    else greetingElement.innerText = "Good Evening Dear";
 }
 
 // 2. Update Progress Circle
